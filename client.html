@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>WebSockets</title>
+</head>
+<body>
+
+	<input type="text" placeholder="Enter your message" id="mytext">
+	<br>
+	<button>Send</button
+	<br>
+	<div id="result">		
+	</div>
+
+	<script>
+		// created a ws connection with server localhost:8081
+		var socket = new WebSocket("ws://localhost:8081");					
+		
+		var button = document.querySelector('button');
+		var rs = document.getElementById('result');
+		
+		button.onclick = function(){
+			var text = document.getElementById("mytext");
+			socket.send(text.value); //sending input text value to server (i.e. localhost:8081)
+		}		
+		
+		socket.onmessage = function(event){
+			console.log(event);
+			rs.innerHTML += event.data+"<br><br>";
+		}
+	</script>
+
+</body>
+</html>
