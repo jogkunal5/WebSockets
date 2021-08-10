@@ -27,6 +27,20 @@
 		socket.onmessage = function(event){
 			console.log(event);
 			rs.innerHTML += event.data+"<br><br>";
+			
+						
+			// Download file code client side			
+			console.log(event.data);
+		    let blob = new Blob([event.data], { type: "application/csv" });
+		    let url = (window as any).webkitURL.createObjectURL(blob);
+		    //window.open(url);
+		    var a = $("<a style='display: none;'/>");
+		    a.attr("href", url);
+		    a.attr("download", "ipflow.csv");
+		    $("body").append(a);
+		    a[0].click();
+		    window.URL.revokeObjectURL(url);
+		    a.remove();
 		}
 	</script>
 
